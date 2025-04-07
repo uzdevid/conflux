@@ -1,6 +1,6 @@
 {
   "name": "uzdevid/conflux-http",
-  "description": "Object oriented HTTP API integration",
+  "description": "Conflux HTTP — This is a flexible architecture for integration with external HTTP services, built on the basis of the PSR-18 and Guzzle. Each request is made out as a separate class that implements the necessary interfaces, providing readability, testability and expansion.",
   "type": "library",
   "keywords": [
     "php",
