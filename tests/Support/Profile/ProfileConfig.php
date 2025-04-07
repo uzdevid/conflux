@@ -4,7 +4,6 @@ namespace UzDevid\Conflux\Http\Tests\Support\Profile;
 
 use GuzzleHttp\ClientInterface;
 use UzDevid\Conflux\Http\ConfigInterface;
-use UzDevid\Conflux\Http\MiddlewareInterface;
 
 readonly class ProfileConfig implements ConfigInterface {
     /**
@@ -27,13 +26,6 @@ readonly class ProfileConfig implements ConfigInterface {
      */
     public function getBaseUri(): string {
         return 'https://id.uzdevid.com';
-    }
-
-    /**
-     * @return MiddlewareInterface[]
-     */
-    public function getMiddlewares(): array {
-        return [];
     }
 
     /**

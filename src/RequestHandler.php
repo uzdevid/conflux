@@ -5,11 +5,11 @@ namespace UzDevid\Conflux\Http;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\ServerException;
-use UzDevid\Conflux\Http\Response\Response;
 use UzDevid\Conflux\Http\Request\RequestBodyInterface;
 use UzDevid\Conflux\Http\Request\RequestHeadersInterface;
 use UzDevid\Conflux\Http\Request\RequestInterface;
 use UzDevid\Conflux\Http\Request\RequestQueryInterface;
+use UzDevid\Conflux\Http\Response\Response;
 
 final class RequestHandler implements RequestHandlerInterface {
     private ConfigInterface $config;
@@ -86,12 +86,18 @@ final class RequestHandler implements RequestHandlerInterface {
      * @return string
      */
     private function prepareUrl(): string {
-        if ($this->request instanceof RequestQueryInterface && !empty($this->request->getQueryPath())) {
-            $queryPaths = $this->request->getQueryPath();
-            return str_replace(array_keys($queryPaths), array_values($queryPaths), $this->request->getUrl());
+        if (filter_var($this->request->getUrl(), FILTER_VALIDATE_URL)) {
+            $url = $this->request->getUrl();
+        } else {
+            $url = sprintf('%s/%s', rtrim($this->config->getBaseUri(), '/'), ltrim($this->request->getUrl(), '/'));
         }
 
-        return $this->request->getUrl();
+        if ($this->request instanceof RequestQueryInterface && !empty($this->request->getQueryPath())) {
+            $queryPaths = $this->request->getQueryPath();
+            return str_replace(array_keys($queryPaths), array_values($queryPaths), $url);
+        }
+
+        return $url;
     }
 
     /**
