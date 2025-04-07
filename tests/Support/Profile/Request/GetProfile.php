@@ -3,13 +3,10 @@
 namespace UzDevid\Conflux\Http\Tests\Support\Profile\Request;
 
 use UzDevid\Conflux\Http\Parser\JsonParser;
-use UzDevid\Conflux\Http\Request\ConvertableBodyInterface;
 use UzDevid\Conflux\Http\Request\Method;
-use UzDevid\Conflux\Http\Request\RequestBodyInterface;
 use UzDevid\Conflux\Http\Request\RequestInterface;
-use UzDevid\Conflux\Http\Request\RequestQueryInterface;
 
-class GetProfile implements RequestInterface, RequestQueryInterface, RequestBodyInterface,ConvertableBodyInterface {
+class GetProfile implements RequestInterface {
     use JsonParser;
 
     /**
