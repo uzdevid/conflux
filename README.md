@@ -177,7 +177,7 @@ class CreateUser implements RequestInterface, RequestBodyInterface {
 
 ---
 
-### Логика замены URL
+### URL replacement
 If the `getUrl()` contains the placeholders `{}`, they will be automatically replaced by values from `getQueryPath()`.
 
 ```text
