@@ -8,6 +8,9 @@ use GuzzleHttp\Exception\ServerException;
 use UzDevid\Conflux\Http\Request\RequestInterface;
 use UzDevid\Conflux\Http\Response\ResponseInterface;
 
+/**
+ * @method ServerException getPrevious()
+ */
 class ServerErrorException extends Exception {
     /**
      * @param ResponseInterface $response

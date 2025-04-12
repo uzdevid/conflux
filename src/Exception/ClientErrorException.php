@@ -7,6 +7,9 @@ use GuzzleHttp\Exception\ClientException;
 use UzDevid\Conflux\Http\Request\RequestInterface;
 use UzDevid\Conflux\Http\Response\ResponseInterface;
 
+/**
+ * @method ClientException getPrevious()
+ */
 class ClientErrorException extends Exception {
     /**
      * @param ResponseInterface $response
