@@ -118,7 +118,8 @@ final class RequestHandler implements RequestHandlerInterface {
      */
     private function prepareBody(): array {
         if ($this->request instanceof RequestBodyInterface) {
-            return [$this->request->getOption() => $this->request->getBody()];
+            $option = is_string($this->request->getOption()) ? $this->request->getOption() : strtolower($this->request->getOption()->name);
+            return [$option => $this->request->getBody()];
         }
 
         return [];
