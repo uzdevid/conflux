@@ -53,16 +53,18 @@ final class ConfluxHttp implements ConfluxHttpInterface {
         try {
             $response = $this->requestHandler->withConfig($this->config)->withRequest($this->request)->handle();
         } catch (ClientException $exception) {
-            $throw = new ClientErrorException(new Response($exception->getResponse()), $this->request, $exception);
-            $this->eventDispatcher->dispatch(new OnThrow($this->request, $throw));
+            $response = new Response($exception->getResponse());
+            $throw = new ClientErrorException($response, $this->request, $exception);
+            $this->eventDispatcher->dispatch(new OnThrow($this->request, $response, $throw));
             throw $throw;
         } catch (ServerException $exception) {
-            $throw = new ServerErrorException(new Response($exception->getResponse()), $this->request, $exception);
-            $this->eventDispatcher->dispatch(new OnThrow($this->request, $throw));
+            $response = new Response($exception->getResponse());
+            $throw = new ServerErrorException($response, $this->request, $exception);
+            $this->eventDispatcher->dispatch(new OnThrow($this->request, $response, $throw));
             throw $throw;
         } catch (GuzzleException $exception) {
             $throw = new ConfluxException($exception->getMessage(), $exception->getCode(), $exception);
-            $this->eventDispatcher->dispatch(new OnThrow($this->request, $throw));
+            $this->eventDispatcher->dispatch(new OnThrow($this->request, null, $throw));
             throw $throw;
         }
 
