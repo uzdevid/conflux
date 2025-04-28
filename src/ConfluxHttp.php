@@ -8,7 +8,7 @@ use GuzzleHttp\Exception\ServerException;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use UzDevid\Conflux\Http\Event\AfterRequest;
 use UzDevid\Conflux\Http\Event\BeforeRequest;
-use UzDevid\Conflux\Http\Event\onThrow;
+use UzDevid\Conflux\Http\Event\OnThrow;
 use UzDevid\Conflux\Http\Exception\ClientErrorException;
 use UzDevid\Conflux\Http\Exception\ConfluxException;
 use UzDevid\Conflux\Http\Exception\ServerErrorException;
@@ -54,15 +54,15 @@ final class ConfluxHttp implements ConfluxHttpInterface {
             $response = $this->requestHandler->withConfig($this->config)->withRequest($this->request)->handle();
         } catch (ClientException $exception) {
             $throw = new ClientErrorException(new Response($exception->getResponse()), $this->request, $exception);
-            $this->eventDispatcher->dispatch(new onThrow($this->request, $throw));
+            $this->eventDispatcher->dispatch(new OnThrow($this->request, $throw));
             throw $throw;
         } catch (ServerException $exception) {
             $throw = new ServerErrorException(new Response($exception->getResponse()), $this->request, $exception);
-            $this->eventDispatcher->dispatch(new onThrow($this->request, $throw));
+            $this->eventDispatcher->dispatch(new OnThrow($this->request, $throw));
             throw $throw;
         } catch (GuzzleException $exception) {
             $throw = new ConfluxException($exception->getMessage(), $exception->getCode(), $exception);
-            $this->eventDispatcher->dispatch(new onThrow($this->request, $throw));
+            $this->eventDispatcher->dispatch(new OnThrow($this->request, $throw));
             throw $throw;
         }
 
