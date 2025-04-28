@@ -5,7 +5,7 @@ namespace UzDevid\Conflux\Http\Event;
 use Throwable;
 use UzDevid\Conflux\Http\Request\RequestInterface;
 
-class onThrow {
+class OnThrow {
     /**
      * @param RequestInterface $request
      * @param Throwable $exception
